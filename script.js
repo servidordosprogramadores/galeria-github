@@ -26,7 +26,7 @@ function card(u) {
     const company = `
         <div class="meta-row">
             <span class="meta-icon">${ICON_COMPANY}</span>
-            <span class="meta-val ${u.company ? '' : 'empty'}">${u.company || 'vazio'}</span>
+            <span class="meta-val ${u.company ? '' : 'empty'}"${u.company ? ` data-company="${u.company.replace(/"/g, '&quot;')}"` : ''}>${u.company || 'vazio'}</span>
         </div>`;
     const blog = `
         <div class="meta-row">
@@ -49,7 +49,7 @@ function card(u) {
             <div class="profile-text">
                 <div class="name">${u.name || u.githubUsername}</div>
                 <a class="username" href="${u.profileUrl}" target="_blank" rel="noopener noreferrer">@${u.githubUsername}</a>
-                <div class="bio"${u.bio && u.bio.length > 32 ? ` data-tooltip="${u.bio.replace(/"/g, '&quot;')}"` : ''} ${!u.bio ? 'style="visibility:hidden"' : ''}>${u.bio ? (u.bio.length > 32 ? u.bio.slice(0, 32).trimEnd() + '...' : u.bio) : '.'}</div>
+                <div class="bio"${u.bio ? ` data-bio="${u.bio.replace(/"/g, '&quot;')}"` : ' style="visibility:hidden"'}>${u.bio || '.'}</div>
             </div>
         </div>
 
@@ -113,6 +113,16 @@ function render() {
     }
 
     gallery.innerHTML = list.map(card).join('');
+
+    gallery.querySelectorAll('.bio[data-bio]').forEach(el => {
+        if (el.scrollWidth > el.clientWidth)
+            el.dataset.tooltip = el.dataset.bio;
+    });
+
+    gallery.querySelectorAll('.meta-val[data-company]').forEach(el => {
+        if (el.scrollWidth > el.clientWidth)
+            el.dataset.tooltip = el.dataset.company;
+    });
 }
 
 document.getElementById('search').addEventListener('input', render);
