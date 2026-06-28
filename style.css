@@ -49,6 +49,19 @@ header {
     color: #60a5fa;
 }
 
+.about-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 10px;
+    color: #333;
+    text-decoration: none;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: color 0.15s;
+}
+
+.about-link:hover { color: #60a5fa; }
+
 /* ── count bar ── */
 .count-bar {
     text-align: center;
