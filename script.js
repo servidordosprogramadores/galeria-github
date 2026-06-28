@@ -45,7 +45,7 @@ function card(u) {
             <div class="profile-text">
                 <div class="name">${u.name || u.githubUsername}</div>
                 <div class="username">@${u.githubUsername}</div>
-                ${u.bio ? `<div class="bio">${u.bio}</div>` : ''}
+                ${u.bio ? `<div class="bio">${u.bio.length > 32 ? u.bio.slice(0, 32).trimEnd() + '...' : u.bio}</div>` : ''}
             </div>
         </div>
 
