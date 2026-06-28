@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria GitHub</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">GALERIA <span class="blue">GITHUB</span></div>
+        <p class="tagline"><a href="https://discord.gg/programador" target="_blank" rel="noopener noreferrer">Servidor
+                dos Programadores</a></p>
+    </header>
+
+    <div class="count-bar">
+        <b id="count">—</b> devs cadastrados
+    </div>
+
+    <div class="container">
+        <div class="toolbar">
+            <div class="search-wrap">
+                <span class="search-prefix">&gt;</span>
+                <input type="text" id="search" placeholder="buscar por nome, username ou bio..." />
+            </div>
+            <div class="select-wrap">
+                <select id="sort">
+                    <option value="followers">// seguidores</option>
+                    <option value="repos">// repos</option>
+                    <option value="name">// nome (a-z)</option>
+                    <option value="desde">// mais antigos</option>
+                </select>
+                <span class="select-arrow">▾</span>
+            </div>
+        </div>
+
+        <div class="gallery" id="gallery">
+            <div class="state state-loading">carregando devs<span class="blink">_</span></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
