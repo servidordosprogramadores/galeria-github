@@ -268,6 +268,36 @@ select:focus {
 
 .empty { color: #2a2a2a !important; }
 
+/* tooltip */
+[data-tooltip] {
+    position: relative;
+    cursor: default;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #aaa;
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 7px 10px;
+    white-space: pre-wrap;
+    width: max-content;
+    max-width: 220px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+}
+
 /* meta */
 .meta {
     display: flex;
