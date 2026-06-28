@@ -49,7 +49,7 @@ function card(u) {
             <div class="profile-text">
                 <div class="name">${u.name || u.githubUsername}</div>
                 <a class="username" href="${u.profileUrl}" target="_blank" rel="noopener noreferrer">@${u.githubUsername}</a>
-                ${u.bio ? `<div class="bio"${u.bio.length > 32 ? ` data-tooltip="${u.bio.replace(/"/g, '&quot;')}"` : ''}>${u.bio.length > 32 ? u.bio.slice(0, 32).trimEnd() + '...' : u.bio}</div>` : ''}
+                <div class="bio"${u.bio && u.bio.length > 32 ? ` data-tooltip="${u.bio.replace(/"/g, '&quot;')}"` : ''} ${!u.bio ? 'style="visibility:hidden"' : ''}>${u.bio ? (u.bio.length > 32 ? u.bio.slice(0, 32).trimEnd() + '...' : u.bio) : '.'}</div>
             </div>
         </div>
 
