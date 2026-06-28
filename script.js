@@ -17,16 +17,20 @@ function safeUrl(blog) {
     return blog.startsWith('http') ? blog : 'https://' + blog;
 }
 
+const ICON_COMPANY = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="M1.5 14.25c0 .138.112.25.25.25H4v-1.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v1.25h2.25a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5A1.75 1.75 0 0 1 10.25 16h-8.5A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0ZM3.5 6.25a.75.75 0 0 1 .75-.75h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1-.75-.75ZM4.25 3.5h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1 0-1.5ZM3.5 9.25a.75.75 0 0 1 .75-.75h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1-.75-.75ZM7.25 3.5h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1 0-1.5ZM6.5 6.25a.75.75 0 0 1 .75-.75h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1-.75-.75ZM7.25 9h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1 0-1.5Z"/></svg>`;
+
+const ICON_BLOG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 2 2 0 0 0 2.83 0l2.5-2.5a2 2 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 1 2.83 0 .751.751 0 0 0 1.042-.018.751.751 0 0 0 .018-1.042 3.5 3.5 0 0 0-4.95 0l-2.5 2.5a3.5 3.5 0 0 0 4.95 4.95l1.25-1.25a.751.751 0 0 0-.018-1.042.751.751 0 0 0-1.042-.018l-1.25 1.25a2 2 0 0 1-2.83 0Z"/></svg>`;
+
 function card(u) {
     const avatar = `https://github.com/${u.githubUsername}.png?size=100`;
     const company = `
         <div class="meta-row">
-            <span class="meta-icon">//</span>
+            <span class="meta-icon">${ICON_COMPANY}</span>
             <span class="meta-val ${u.company ? '' : 'empty'}">${u.company || 'vazio'}</span>
         </div>`;
     const blog = `
         <div class="meta-row">
-            <span class="meta-icon">//</span>
+            <span class="meta-icon">${ICON_BLOG}</span>
             <span class="meta-val ${u.blog ? '' : 'empty'}">${u.blog ? `<a href="${safeUrl(u.blog)}" target="_blank" rel="noopener noreferrer">${u.blog}</a>` : 'vazio'}</span>
         </div>`;
     const hasMeta = true;
@@ -44,7 +48,7 @@ function card(u) {
                  onerror="this.src='https://github.com/ghost.png'">
             <div class="profile-text">
                 <div class="name">${u.name || u.githubUsername}</div>
-                <div class="username">@${u.githubUsername}</div>
+                <a class="username" href="${u.profileUrl}" target="_blank" rel="noopener noreferrer">@${u.githubUsername}</a>
                 ${u.bio ? `<div class="bio"${u.bio.length > 32 ? ` data-tooltip="${u.bio.replace(/"/g, '&quot;')}"` : ''}>${u.bio.length > 32 ? u.bio.slice(0, 32).trimEnd() + '...' : u.bio}</div>` : ''}
             </div>
         </div>
@@ -70,7 +74,6 @@ function card(u) {
 
         <div class="card-footer">
             <span class="desde">desde <b>${fmtDate(u.githubCreatedAt)}</b></span>
-            <a class="gh-link" href="${u.profileUrl}" target="_blank" rel="noopener noreferrer">github →</a>
         </div>
 
         <div class="discord-row">
@@ -139,3 +142,25 @@ async function init() {
 }
 
 init();
+
+// tooltip
+const tooltip = document.createElement('div');
+tooltip.id = 'tooltip';
+document.body.appendChild(tooltip);
+
+document.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-tooltip]');
+    if (!el) return;
+    tooltip.textContent = el.dataset.tooltip;
+    tooltip.style.display = 'block';
+});
+
+document.addEventListener('mousemove', e => {
+    tooltip.style.left = (e.clientX + 12) + 'px';
+    tooltip.style.top  = (e.clientY + 12) + 'px';
+});
+
+document.addEventListener('mouseout', e => {
+    if (!e.target.closest('[data-tooltip]')) return;
+    tooltip.style.display = 'none';
+});

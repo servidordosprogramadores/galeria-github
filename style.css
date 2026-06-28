@@ -250,9 +250,17 @@ select:focus {
 }
 
 .username {
+    display: inline-block;
     font-size: 11px;
     color: #93c5fd;
     margin-top: 3px;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.username:hover {
+    color: #60a5fa;
+    text-decoration: underline;
 }
 
 .bio {
@@ -269,33 +277,21 @@ select:focus {
 .empty { color: #2a2a2a !important; }
 
 /* tooltip */
-[data-tooltip] {
-    position: relative;
-    cursor: default;
-}
+[data-tooltip] { cursor: default; }
 
-[data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 0;
+#tooltip {
+    position: fixed;
     background: #1a1a1a;
     border: 1px solid #2a2a2a;
     color: #aaa;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 10px;
     line-height: 1.6;
     padding: 7px 10px;
-    white-space: pre-wrap;
-    width: max-content;
     max-width: 220px;
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-    z-index: 10;
-}
-
-[data-tooltip]:hover::after {
-    opacity: 1;
+    z-index: 999;
+    display: none;
 }
 
 /* meta */
@@ -316,10 +312,12 @@ select:focus {
 }
 
 .meta-icon {
-    color: #2a2a2a;
+    color: #3a3a3a;
     flex-shrink: 0;
     width: 12px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .meta-val {
