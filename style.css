@@ -49,9 +49,14 @@ header {
     color: #60a5fa;
 }
 
-.about-link {
-    display: inline-block;
+.header-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
     margin-top: 14px;
+}
+
+.about-link {
     font-size: 10px;
     color: #333;
     text-decoration: none;
