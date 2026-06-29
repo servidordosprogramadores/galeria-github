@@ -102,7 +102,8 @@ function render() {
         (u.name || '').toLowerCase().includes(q) ||
         u.githubUsername.toLowerCase().includes(q) ||
         (u.bio || '').toLowerCase().includes(q) ||
-        (u.company || '').toLowerCase().includes(q)
+        (u.company || '').toLowerCase().includes(q) ||
+        (u.discordUsername || '').toLowerCase().includes(q)
     );
 
     list = [...list].sort(SORTERS[sort]);
